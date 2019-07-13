@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>腾润驾培后台管理</title>
+	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 调用菜单，必须在easyui前面调用 -->
+	<script type="text/javascript" src="js/menu.js">
+</script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/checkpic.js"></script>
+    <style type="text/css">
+     form>p>span{
+     	margin-left:10px;
+     }
+     form>p>span.no{
+     	color:#f00;
+     }
+     form>p>span.ok{
+     	color: #0f0;
+     }
+    </style>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:60px;overflow:hidden;"><img src="img/default/logo.jpg" style=""></div>
+	<div data-options="region:'west',split:true,title:'管理目录'" style="width:200px;padding:10px;">
+		<!-- 侧导航开始 -->
+       <div class="easyui-panel" style="border:0;width:100%">
+		<ul class="easyui-tree" id="menus">
+			
+		</ul>
+		
+	</div>
+	<!-- 侧导航结束 -->
+	</div>
+	<div data-options="region:'south',border:false" style="height:50px;line-height:25px;text-align:center;"><span>地址：秦皇岛市海港区徐庄联合储运场</span><br>
+		<span>电话：0335-3301222</span></div>
+	<!-- 	内容区域开始 -->
+	<div data-options="region:'center',title:'添加教练'">
+	<div style="margin: 5px;" >
+
+		<form action="php/addcoach.php" name="pic" method="post" enctype="multipart/form-data">
+		<p>教练名称：<input type="text" name="names"><span id="namemsg" class="no">*</span></p>
+        <p> 驾龄(开始驾车时间):<input class="easyui-datebox"  type="text" name="start" required><span class="no" id="startmsg">*</span></p>
+        <p> 教龄(开始驾车时间):<input class="easyui-datebox"  type="text" name="end" required><span class="no" id="endtmsg">*</span></p>
+		<p>类型：<input type="text" name="types" ><span id="typemsg" class="no">*</span></p>
+		<p>荣誉：<input type="text" name="honor"><span id="honormsg" class="no">*</span></p>
+		<p>评价：<select name="evaluate">
+                    <option value="5" selected>5</option>
+                    <option value="4" selected>4</option>
+                    <option value="3" selected>3</option>
+                    <option value="2" selected>2</option>
+                    <option value="1" selected>1</option>
+                 </select> 颗星 
+		<span id="evalmsg" class="no">*</span></p>
+		<p>选择上传文件：<input id="idFile" runat="server" type="file"  onchange="javascript:setImagePreview(this,localImag,preview);" name="newbanner"></p>
+		<input type="submit" name="sub" value="&nbsp;&nbsp;提 交&nbsp;&nbsp;" class="easyui-linkbutton">
+		</form>
+		</div>
+		<div id="localImag">
+		
+    <img id="preview" alt="预览图片"  style="width: 240px; height:auto;"/> 
+	</div>
+	</div>
+	<script type="text/javascript">
+	//表单验证开始
+    $(document).ready(function(){
+    	$msg="输入正确";
+    	$("input[name=names]").keyup(function(){
+    		if($(this).val().length>1 && $(this).val().length<50){
+    			$("#namemsg").html($msg).attr("class","ok");
+
+    		}else{
+    			$("#namemsg").html("请输入正确的名称").attr("class","no");
+    		}
+    	});
+        
+    	$("input[name=types]").keyup(function(){
+            
+    		if($(this).val().length>1 && $(this).val().length<20){
+                $("#typemsg").html($msg).attr("class","ok");
+            }else{
+                $("#typemsg").html("请输入正确的类型").attr("class","no");
+            }
+    	});
+    	$("input[name=honor]").keyup(function(){
+    		if($(this).val().length>1 && $(this).val().length<20){
+    			$("#honormsg").html($msg).attr("class","ok");
+    		}else{
+    			$("#honormsg").html("请输入正确的荣誉").attr("class","no");
+    		}
+    	});
+    	
+    	$("form[name=pic]").submit(function(){
+    		if($("#namemsg").text()!=$msg){
+    			$("input[name=names]").focus().triggerHandler("keyup");
+    			return false;
+    		}
+    		if($("#typemsg").text()!=$msg){
+    			$("input[name=types]").focus().triggerHandler("keyup");
+    			return false;
+    		}
+    		if($("#honormsg").text()!=$msg){
+    			$("input[name=honor]").focus().triggerHandler("keyup");
+    			return false;
+    		}
+    		if(!($("#idFile").val())){
+    			alert("请选择新图像");
+    			return false;
+    		}
+
+    	});
+    })
+	</script>
+	<!-- 内容区域结束 -->
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>腾润驾培后台管理</title>
+	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 调用菜单，必须在easyui前面调用 -->
+	<script type="text/javascript" src="js/menu.js">
+</script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<!-- 验证pic -->
+	<script type="text/javascript" src="js/checkpic.js"></script>
+ 
+
+
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:60px;overflow:hidden;"><img src="img/default/logo.jpg" style=""></div>
+	<div data-options="region:'west',split:true,title:'管理目录'" style="width:200px;padding:10px;">
+		<!-- 侧导航开始 -->
+       <div class="easyui-panel" style="border:0;width:100%">
+		<ul class="easyui-tree" id="menus">
+			
+		</ul>
+		
+	</div>
+	<!-- 侧导航结束 -->
+	</div>
+	<div data-options="region:'south',border:false" style="height:50px;line-height:25px;text-align:center;"><span>地址：秦皇岛市海港区徐庄联合储运场</span><br>
+		<span>电话：0335-3301222</span></div>
+	<!-- 	内容区域开始 -->
+	<div data-options="region:'center',title:'修改banner'">
+	<div id="oldimg" id="width:240px;position:relative;height:auto;">
+	<p>原来图像:</p>
+	<img src="" id="oldpic" style="width: 240px;">
+	</div>
+		<div style="margin: 5px;">
+		<form action="php/updatebanner.php" name="pic" method="post" enctype="multipart/form-data">
+		
+			重新选择上传文件：<input id="idFile" runat="server" type="file"  onchange="javascript:setImagePreview(this,localImag,preview);" name="newbanner">
+		
+		<input type="hidden" name="oldid">
+        <input type="hidden" name="oldpath">
+		<input type="submit" name="sub" value="&nbsp;&nbsp;提 交&nbsp;&nbsp;" class="easyui-linkbutton" >
+		</form>
+		<p>新图像:</p>
+		</div>
+		<div id="localImag">
+		
+    <img id="preview" alt="预览图片"  style="width: 240px; height:auto;"/> 
+	</div>
+	<!-- 内容区域结束 -->
+	<script type="text/javascript">
+    $(document).ready(function(){
+    	$("form[name=pic]").submit(function(){
+    		if(!($("#idFile").val())){
+    			alert("请选择新图像");
+    			return false;
+    		}
+    	});
+    	//获得id和path信息
+     function getPathl(p){
+     	var pt=p.substr(1,p.length);
+     	var arr1=pt.split("&");
+     	var arr2=[];
+     	for(var i=0;i<arr1.length;i++){
+     		var newa=arr1[i].split("=");
+     		arr2.push(newa[1]);
+     	}
+     	return arr2;
+     }
+     var oldmsg=getPathl(window.location.search);
+     $("#oldpic").attr("src","../"+oldmsg[1]);
+     $("form[name=pic]").append($("<input type='hidden' name='oldpath' value='"+oldmsg[1]+"'>" ));
+     $("form[name=pic]").append($("<input type='hidden' name='oldid' value='"+oldmsg[0]+"'>" ));
+     // $("#oldid").attr("value",oldmsg[0]);
+     // $("oldpath").attr("value",oldmsg[1]);
+    
+    })
+	</script>
+</body>
+</html>

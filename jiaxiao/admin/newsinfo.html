@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>腾润驾培后台管理</title>
+	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 调用菜单，必须在easyui前面调用 -->
+	<script type="text/javascript" src="js/menu.js">
+</script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<!-- 验证pic -->
+	<script type="text/javascript" src="js/checkpic.js"></script>
+ <style type="text/css">
+   #contents_news{
+   	margin: 10px;
+   }
+ </style>
+
+
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:60px;overflow:hidden;"><img src="img/default/logo.jpg" style=""></div>
+	<div data-options="region:'west',split:true,title:'管理目录'" style="width:200px;padding:10px;">
+		<!-- 侧导航开始 -->
+       <div class="easyui-panel" style="border:0;width:100%">
+		<ul class="easyui-tree" id="menus">
+			
+		</ul>
+		
+	</div>
+	<!-- 侧导航结束 -->
+	</div>
+	<div data-options="region:'south',border:false" style="height:50px;line-height:25px;text-align:center;"><span>地址：秦皇岛市海港区徐庄联合储运场</span><br>
+		<span>电话：0335-3301222</span></div>
+	<!-- 	内容区域开始 -->
+	<div data-options="region:'center',title:'新闻'">
+	<div id="contents_news">
+	
+	</div>
+	<!-- 内容区域结束 -->
+	<script type="text/javascript">
+    $(document).ready(function(){
+    	
+    	//获得id和path信息
+     function getPathl(p){
+     	var pt=p.substr(1,p.length);
+     	var arr1=pt.split("&");
+     	var arr2=[];
+     	for(var i=0;i<arr1.length;i++){
+     		var newa=arr1[i].split("=");
+     		arr2.push(newa[1]);
+     	}
+     	return arr2;
+     }
+     var oldmsg=getPathl(window.location.search);
+     var arr="";
+        $.ajax({
+         data:{m:oldmsg[0]},
+         type:"get",
+         dataType:"JSON",
+         url:"php/newsinfo.php",
+         async:false,//必须是同步请求，不然先加载dom结构
+         success:function(data){
+           $.each(data,function(index,con){
+            arr+='<h3 align="center">'+con.title_news+'</h3>'+con.info_news+'<p align="right">'+con.time_news+'</p>';
+           })
+        }
+        })
+        $("#contents_news").append($(arr));
+    })
+	</script>
+</body>
+</html>

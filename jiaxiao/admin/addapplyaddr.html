@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>腾润驾培后台管理</title>
+	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 调用菜单，必须在easyui前面调用 -->
+	<script type="text/javascript" src="js/menu.js">
+</script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/checkpic.js"></script>
+    <style type="text/css">
+     form>p>span{
+     	margin-left:10px;
+     }
+     form>p>span.no{
+     	color:#f00;
+     }
+     form>p>span.ok{
+     	color: #0f0;
+     }
+    </style>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:60px;overflow:hidden;"><img src="img/default/logo.jpg" style=""></div>
+	<div data-options="region:'west',split:true,title:'管理目录'" style="width:200px;padding:10px;">
+		<!-- 侧导航开始 -->
+       <div class="easyui-panel" style="border:0;width:100%">
+		<ul class="easyui-tree" id="menus">
+			
+		</ul>
+		
+	</div>
+	<!-- 侧导航结束 -->
+	</div>
+	<div data-options="region:'south',border:false" style="height:50px;line-height:25px;text-align:center;"><span>地址：秦皇岛市海港区徐庄联合储运场</span><br>
+		<span>电话：0335-3301222</span></div>
+	<!-- 	内容区域开始 -->
+	<div data-options="region:'center',title:'添加网点'">
+	<div style="margin: 5px;">
+
+		<form action="php/addapplyaddr.php" name="pic" method="post" enctype="multipart/form-data">
+		<p>网点名称：<input type="text" name="names"><span id="namemsg" class="no">*</span></p>
+		<p>网点电话：<input type="text" name="tels" size="50"><span id="telmsg" class="no">*</span></p>
+		<p>网点的网址：<textarea name="addr"></textarea>，<span id="addrmsg" class="no">*</span></p>
+		<p>网点乘车路线：<textarea name="path"></textarea><span id="pathmsg" class="no">*</span></p>
+		<input type="submit" name="sub" value="&nbsp;&nbsp;提 交&nbsp;&nbsp;" class="easyui-linkbutton">
+		</form>
+	</div>
+	<script type="text/javascript">
+	//表单验证开始
+    $(document).ready(function(){
+    	$msg="输入正确";
+    	$("input[name=names]").keyup(function(){
+    		if($(this).val().length>1 && $(this).val().length<50){
+    			$("#namemsg").html($msg).attr("class","ok");
+
+    		}else{
+    			$("#namemsg").html("请输入正确的网点名称").attr("class","no");
+    		}
+    	});
+    	$("input[name=tels]").keyup(function(){
+            var reg=/^[0-9]{3,}[0-9\-\,]{1,}$/;
+    		if(reg.test($(this).val())){
+    			$("#telmsg").html($msg).attr("class","ok");
+    		}else{
+    			$("#telmsg").html("请输入正确的电话用','隔开").attr("class","no");
+    		}
+    	});
+    	$("textarea[name=addr]").keyup(function(){
+    		if($(this).val().length>1){
+    			$("#addrmsg").html($msg).attr("class","ok");
+    		}else{
+    			$("#addrmsg").html("请输入正确的地址").attr("class","no");
+    		}
+    	});
+    	$("textarea[name=path]").keyup(function(){
+    		if($(this).val().length>1){
+    			$("#pathmsg").html($msg).attr("class","ok");
+    		}else{
+    			$("#pathmsg").html("请输入路线").attr("class","no");
+    		}
+    	});
+    	
+    	$("form[name=pic]").submit(function(){
+    		if($("#namemsg").text()!=$msg){
+    			$("input[name=names]").focus().triggerHandler("keyup");
+    			return false;
+    		}
+    		if($("#telmsg").text()!=$msg){
+    			$("input[name=tels]").focus().triggerHandler("keyup");
+    			return false;
+    		}
+    		if($("#addrmsg").text()!=$msg){
+    			$("textarea[name=addr]").focus().triggerHandler("keyup");
+    			return false;
+    		}
+    		if($("#pathmsg").text()!=$msg){
+    			$("textarea[name=path]").focus().triggerHandler("keyup");
+    			return false;
+    		}
+    		
+
+    	});
+    })
+	</script>
+	<!-- 内容区域结束 -->
+</body>
+</html>

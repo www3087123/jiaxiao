@@ -1,0 +1,74 @@
+/* notice --ggwly-gjy start  */
+#notice{
+    background: #eee;
+    text-align: center;
+}
+#notice img{
+    margin:10px;
+}
+/* notice --ggwly-gjy end */
+/* classes --ggwly-gjy start */
+#classes{
+    background-image: url("../img/index/indexClass.jpg");/*加入背景图片*/
+    background-repeat: no-repeat; /*不平铺*/
+    background-position: left top;  /*位置设置*/
+    background-size: 100% 100%;  /*大小*/
+}
+#classes h2{
+    text-align: center;
+    color: #a00;
+    font-weight: bold;
+    line-height: 60px;
+}
+#classes h4{
+    text-align: center;
+}
+#classes img{
+    width:100%;
+    height:auto;
+}
+/* classes --ggwly-gjy end */
+/* server --ggwly-gjy start */
+#server{
+    background: #deb576;
+}
+/* server --ggwly-gjy end */
+/* news --ggwly-gjy start */
+#news .left>h3{
+    line-height: 40px;
+    background: url("../img/index/newsBg.png") no-repeat;
+    padding-left: 30px;
+}
+#news .left>div>img{
+    float: left;
+    margin-right: 10px;
+ 
+}
+#news .left>div>h4{
+    font-weight: bold;
+    line-height: 40px;
+}
+#news  .left>div>p{
+    font-size: 16px;
+    line-height: 40px;
+    border-bottom:dashed #aaa 1px;  
+}
+#news .left>div>p>img{
+    margin-right: 15px;
+}
+#news .right>h3{
+    line-height: 40px;
+}
+#news .right>h3>img{
+    margin-right: 10px;
+}
+#news .right>img{
+    width:100%;
+    height: auto;
+    border: solid 5px #aaa;
+}
+#news .right>p{
+    font-size: 16px;
+    line-height: 40px;
+}
+/* news --ggwly-gjy end */

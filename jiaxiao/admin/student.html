@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>腾润驾培后台管理</title>
+	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 调用菜单，必须在easyui前面调用 -->
+	<script type="text/javascript" src="js/menu.js">
+</script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<style type="text/css">
+     table,td,th{
+     	border: solid 1px #ccc;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+     }
+     table{
+     	border-collapse: collapse;
+     	margin: 10px;
+     }
+     table th{
+     	text-align: center;
+     }
+     table td>span{
+       color:#0f0;
+     }
+	</style>
+ <script type="text/javascript">
+ function changes(s){
+   // $(function(){
+        $.ajax({
+            type:"get",
+            data:{id:s},
+            url:"php/stustatus.php",
+            success:function(data){
+               // alert(data);
+              if (data=="ok") {location.reload();}else{alert("监察网络，重试");}
+            }
+        })
+     //  })
+ }
+ setInterval("location.reload()",1000*60*60);
+ // banner图后台调用
+$(document).ready(function(){
+
+        var arr="";
+        
+        $.ajax({
+         type:"get",
+         data:{types:0},
+         dataType:"JSON",
+         url:"php/teacher.php",
+         async:false,//必须是同步请求，不然先加载dom结构
+         success:function(data){
+
+           $.each(data,function(index,info){
+            var str=info.status_ts==0 ? "<input type=button value=等待处理 onclick=changes("+info.id_ts+")>": "<span>已处理</span>";
+           	arr+='<tr><td>'+info.name_ts+'</td><td>'+info.tel_ts+'</td><td>'+info.time_ts+'</td><td>'+str+'</td><td><a href="php/delteacher.php?id='+info.id_ts+'&types=0">删除</a></td></tr>';
+           })
+        }
+        })
+
+      $("#contents_class").append($(arr));
+       //
+      //+info.status_ts==0?+'<input type="button" name="but" value="等待处理" onclick="change('+info.id_ts+')">'+:+'<span>已处理</span>'+;+
+	   
+})
+ </script>
+
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:60px;overflow:hidden;"><img src="img/default/logo.jpg" style=""></div>
+	<div data-options="region:'west',split:true,title:'管理目录'" style="width:200px;padding:10px;">
+		<!-- 侧导航开始 -->
+       <div class="easyui-panel" style="border:0;width:100%">
+		<ul class="easyui-tree" id="menus">
+			
+		</ul>
+		
+	</div>
+	<!-- 侧导航结束 -->
+	</div>
+	<div data-options="region:'south',border:false" style="height:50px;line-height:25px;text-align:center;"><span>地址：秦皇岛市海港区徐庄联合储运场</span><br>
+		<span>电话：0335-3301222</span></div>
+	<!-- 	内容区域开始 -->
+	<div data-options="region:'center',title:'内容区域'">
+	<table id="contents_class">
+    <tr>
+       <th>姓名</th>
+       <th>电话</th>
+       <th>报名时间</th>
+       <th>状态</th>
+       <th>操作</th>
+    </tr>
+    
+	</table>
+	</div>
+	<!-- 内容区域结束 -->
+</body>
+</html>

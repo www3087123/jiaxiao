@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Insert title here</title>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <style>
+            body {
+                background: url(img/LoginBg.jpg) repeat-x;
+            }
+            
+            #login {
+                width: 363px;
+                height: 228px;
+                background: url("img/LoginTxt.jpg");
+                margin: 100px auto;
+                padding-top: 80px;
+                padding-left: 80px;
+            }
+            
+            table {
+                border-collapse: collapse;
+            }
+            
+            td {
+                padding: 5px;
+            }
+            
+            td.inputtd {
+                widht: 230px;
+            }
+            
+            td.msg {
+                width: 72px;
+            }
+            
+            .txt {
+                text-align: right;
+                padding-right: 5px;
+                font-size: 13px;
+                width: 58px;
+            }
+            
+            input {
+                width: 125px;
+                border: 1px solid #ABADB3;
+                height: 17px;
+                padding-left: 17px;
+            }
+            
+            #name {
+                background: #fff url("img/name.jpg") no-repeat;
+            }
+            
+            #pwd {
+                background: #fff url("img/pwd.jpg") no-repeat;
+            }
+            
+            #code {
+                width: 50px;
+                padding-left: 0;
+            }
+            
+            #sname, #spwd, #result, #scode {
+                font-size: 12px;
+                color: red;
+            }
+        </style>
+        <script>
+            $(function(){
+                $("#name").blur(function(){
+                    if ($(this).val() == "") {
+                        $("#sname").text("用户名不为空");
+                    }
+                    else {
+                        $("#sname").text("");
+                    }
+                })
+                $("#pwd").blur(function(){
+                    if ($(this).val() == "") {
+                        $("#spwd").text("密码不为空");
+                    }
+                    else {
+                        $("#spwd").text("");
+                    }
+                }).keydown(function(e){
+                    if (e.which == 13) {
+                        $("#sub").click();
+                    }
+                })
+                $("#code").blur(function(){
+                    if ($(this).val() == "") {
+                        $("#scode").text("验证码不为空");
+                    }
+                    else {
+                        $.post("php/checkCode.php", {
+                            code: $(this).val()
+                        }, function(data){
+                            if (data == "error") {
+                                $("#scode").text("验证码不正确");
+                            }
+                            else {
+                                $("#scode").text("");
+                            }
+                        })
+                    }
+                })
+                $("#sub").click(function(){
+                    $("#name").blur();
+                    $("#pwd").blur();
+                    if ($("#name").val() != "" && $("#pwd").val() != "" && $("#code").val() != "") {
+                        $.post("php/login.php", {
+                            name: $("#name").val(),
+                            pwd: $("#pwd").val(),
+                            code: $("#code").val()
+                        }, function(data){
+                        
+                            if (data == "error") {
+                                $("#result").text("用户名或密码不正确");
+                            }
+                            else{ 
+
+                                if (data == "code") {
+                                    $("#scode").text("验证码不正确");
+                                }
+                                else {
+
+                                   location.href = data;
+                                }
+                            }
+                        })
+                    }
+                })
+                $("#imgcode").click(function(){
+                    $(this).attr("src", "php/ImageCode.php?id=" + Math.random());
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <div id="login">
+            <table>
+                <tr>
+                    <td class="txt">
+                        用户名:
+                    </td>
+                    <td class="inputtd">
+                        <input type="text" id="name"/>
+                    </td>
+                    <td class="msg">
+                        <span id="sname"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="txt">
+                        密<span style="visibility:hidden;">一</span>码:
+                    </td>
+                    <td class="inputtd">
+                        <input type="password" id="pwd"/>
+                    </td>
+                    <td class="msg">
+                        <span id="spwd"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="txt">
+                        验证码:
+                    </td>
+                    <td class="inputtd">
+                        <input type="text" id="code"/><img id="imgcode" style="vertical-align:middle" src="php/ImageCode.php"/>
+                    </td>
+                    <td class="msg">
+                        <span id="scode"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align:center;">
+                        <img id="sub" src="img/Login.jpg"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <span id="result"></span>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

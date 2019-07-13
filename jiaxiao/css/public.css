@@ -1,0 +1,76 @@
+/* nav --ggwly-gjy start */
+#nav{
+    background: #ff8814;
+}
+.nav-pills>li>a{
+    border-radius: 0px;
+    color:#fff;
+    font-size: 18px;
+}
+.nav-pills>li>a:hovor{
+    color:#333;
+}
+/* nav --link-ljj-end */
+
+/* footer --ggwly-gjy start */
+#footer{
+    background: #ff8814;
+    color:#fff;
+}
+#footer a{
+    color:#fff;
+    font-size: 16px;
+    line-height: 30px;
+}
+#footer .erweima{
+    width: 150px;
+    height: auto;
+    margin: 10px;
+}
+/* footer --ggwly-gjy end */
+/* nav2 --ggwly-gjy start */
+#nav2 p{
+    padding: 5px;
+    color:#333;
+}
+/* nav2 --ggwly-gjy end */
+/* banner2 --ggwly-gjy start  */
+#banner2{
+margin-bottom: 20px;
+}
+#banner2>img{
+width:100%;
+height:auto;
+}
+/* banner2 --ggwly-gjy end */
+/* navleft --ggwly-gjy start  */
+#navleft{
+    background: url("../img/public/left.png") no-repeat left top;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom:20px;
+}
+#navleft>li{
+    margin-left: 20px;
+    width: 220px;
+    height: 66px;
+    background: #fff;
+    line-height: 60px;
+    text-align: center;
+    padding: 0px;
+}
+#navleft>li>a{
+    font-size: 18px;
+    color:#555;
+    display: block;
+    margin: 0px;
+     border-bottom: dashed 1px #aaa;
+}
+#navleft>li>a:hover{
+    color:#fff;
+    text-decoration: none;
+    background: #ff9914;
+}
+
+/* navleft --ggwly-gjy end */

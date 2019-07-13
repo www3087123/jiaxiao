@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>腾润驾培后台管理</title>
+	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<style type="text/css">
+     #contents_banner{
+     	position: relative;width: 100%;overflow: auto;height: auto;
+     }
+     #contents_banner>div{
+     	height: 100px;height:100px;position: relative;margin:10px;
+     }
+     #contents_banner>div>img{
+     	height: 100px;height:100px;position: absolute;left: 0px;top:0px;z-index: 0;
+     }
+     #contents_banner>div>a{
+     	position: absolute;z-index: 1;left: 0px;top: 0px;background: rgba(0,0,0,0.5);color: #fff;padding: 3px;text-decoration: none;font-weight: bold;
+     }
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 调用菜单，必须在easyui前面调用 -->
+	<script type="text/javascript" src="js/menu.js">
+</script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+ <script type="text/javascript">
+ // banner图后台调用
+$(document).ready(function(){
+        
+        function loaddata(mvalue){
+        $("#contents_banner").html("<span></span>");
+        var arr="";
+        $.ajax({
+         data:{m:mvalue},
+         type:"get",
+         dataType:"JSON",
+         url:"php/schoolpic.php",
+         async:false,//必须是同步请求，不然先加载dom结构
+         success:function(data){
+           $.each(data,function(index,info){
+           	arr+='<div ><img src="../'+info.path_sp+'" ><a href="php/delschoolpic.php?id='+info.id_sp+'&path='+info.path_sp+'">删除</a></div>';
+           })
+        }
+        })
+
+      $("#contents_banner").append($(arr));
+      }
+      loaddata(0);
+      $("#but1").click(function(){
+      	loaddata(0);
+      });
+      $("#but2").click(function(){
+      	loaddata(1);
+      });
+      $("#but3").click(function(){
+      	loaddata(2);
+      });
+})
+ </script>
+
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:60px;overflow:hidden;"><img src="img/default/logo.jpg" style=""></div>
+	<div data-options="region:'west',split:true,title:'管理目录'" style="width:200px;padding:10px;">
+		<!-- 侧导航开始 -->
+       <div class="easyui-panel" style="border:0;width:100%">
+		<ul class="easyui-tree" id="menus">
+			
+		</ul>
+		
+	</div>
+	<!-- 侧导航结束 -->
+	</div>
+	<div data-options="region:'south',border:false" style="height:50px;line-height:25px;text-align:center;"><span>地址：秦皇岛市海港区徐庄联合储运场</span><br>
+		<span>电话：0335-3301222</span></div>
+	<!-- 	内容区域开始 -->
+	<div data-options="region:'center',title:'显示校园风景'">
+	<p><button id="but1" onclick="loaddata(0)"> 显示校园风景</button> <button id="but2" onclick="loaddata(1)"> 显示教学车辆</button><button id="but3" onclick="loaddata(2)"> 显示设备设施</button></p>
+	<div id="contents_banner">
+	
+		<!-- 图片出现位置 -->
+	     </div>
+	</div>
+	<!-- 内容区域结束 -->
+</body>
+</html>

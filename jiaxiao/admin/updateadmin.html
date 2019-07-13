@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>腾润驾培后台管理</title>
+	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 调用菜单，必须在easyui前面调用 -->
+	<script type="text/javascript" src="js/menu.js">
+</script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/checkpic.js"></script>
+    <style type="text/css">
+     form>p>span{
+     	margin-left:10px;
+     }
+     form>p>span.no{
+     	color:#f00;
+     }
+     form>p>span.ok{
+     	color: #0f0;
+     }
+    </style>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:60px;overflow:hidden;"><img src="img/default/logo.jpg" style=""></div>
+	<div data-options="region:'west',split:true,title:'管理目录'" style="width:200px;padding:10px;">
+		<!-- 侧导航开始 -->
+       <div class="easyui-panel" style="border:0;width:100%">
+		<ul class="easyui-tree" id="menus">
+			
+		</ul>
+		
+	</div>
+	<!-- 侧导航结束 -->
+	</div>
+	<div data-options="region:'south',border:false" style="height:50px;line-height:25px;text-align:center;"><span>地址：秦皇岛市海港区徐庄联合储运场</span><br>
+		<span>电话：0335-3301222</span></div>
+	<!-- 	内容区域开始 -->
+	<div data-options="region:'center',title:'修改管理员密码'">
+	<div style="margin: 5px;">
+
+		<form action="php/updateadmin.php" name="pic" method="post" enctype="multipart/form-data">
+		<p>原密码：<input type="password" name="old"><span id="namemsg" class="no">*</span></p>
+		<p>新密码：<input type="password" name="pwd"><span id="telmsg" class="no">*</span></p>
+		<input type="submit" name="sub" value="&nbsp;&nbsp;修 改&nbsp;&nbsp;" class="easyui-linkbutton">
+		</form>
+	</div>
+	<script type="text/javascript">
+	//表单验证开始
+    $(document).ready(function(){
+        //获得id和path信息
+     function getPathl(p){
+        var pt=p.substr(1,p.length);
+        var arr1=pt.split("&");
+        var arr2=[];
+        for(var i=0;i<arr1.length;i++){
+            var newa=arr1[i].split("=");
+            arr2.push(newa[1]);
+        }
+        return arr2;
+     }
+     var oldmsg=getPathl(window.location.search);
+     if(oldmsg[0]=="no"){alert("填写有误，请重新设置密码！");}
+    	$msg="输入正确";
+    	$("input[name=old]").keyup(function(){
+    		if($(this).val().length>4 && $(this).val().length<50){
+    			$("#namemsg").html($msg).attr("class","ok");
+
+    		}else{
+    			$("#namemsg").html("请输入正确的旧密码").attr("class","no");
+    		}
+    	});
+    	$("input[name=pwd]").keyup(function(){
+    		if($(this).val().length>4 && $(this).val().length<50){
+    			$("#telmsg").html($msg).attr("class","ok");
+    		}else{
+    			$("#telmsg").html("请输入正确的新密码'").attr("class","no");
+    		}
+    	});
+    	
+    	$("form[name=pic]").submit(function(){
+    		if($("#namemsg").text()!=$msg){
+    			$("input[name=old]").focus().triggerHandler("keyup");
+    			return false;
+    		}
+    		if($("#telmsg").text()!=$msg){
+    			$("input[name=pwd]").focus().triggerHandler("keyup");
+    			return false;
+    		}
+    		
+
+    	});
+    })
+	</script>
+	<!-- 内容区域结束 -->
+</body>
+</html>

@@ -1,0 +1,50 @@
+/* busleft --ggwly-gjy start */
+#bus .busleft{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+#bus .busleft>li{
+    width: 400px;
+    height: 180px;
+    position: relative;
+    overflow: auto;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 20px;
+}
+#bus .busleft>li>div{
+    width: 385px;
+    height: 180px;
+    float: left;
+    background: #efefef
+}
+#bus .busleft>li>div.change{
+    background: #ffa914;
+    color: #fff;
+}
+#bus .busleft>li>div>img{
+    float: left;
+    margin-right: 10px;
+}
+#bus .busleft>li>div>h4{
+    font-weight: bold;
+    line-height: 60px;
+}
+#bus .busleft>li>img{
+    opacity: 0;
+}
+/* busleft --ggwly-gjy end */
+/* busright --ggwly-gjy start */
+#bus .busright>img{
+    width: 100%;
+    height: auto;
+}
+#bus .busright>div>h4{
+    text-align: center;
+    line-height: 60px;
+}
+#bus .busright>div>h4>img{
+    margin: 5px;
+}
+/* busright --ggwly-gjy start */
